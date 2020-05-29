@@ -9,8 +9,8 @@ const routing = (
 
     <Router>
         <Switch>
+        <Route exact path = '/acceder' component = {Login}/>
             <Route exact path = '/' component = {Home} />
-            <Route path = '/acceder' component = {Login}/>
             <Route path = '/registrarme' component = {Form}/>
             <Route path = '/usuarios' component = {User}/>
         </Switch>

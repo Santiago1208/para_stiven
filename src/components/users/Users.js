@@ -2,46 +2,68 @@ import React, {Component} from 'react'
 import ListUser from './ListUser'
 import axios from '../../utils/axios'
 import { Link } from 'react-router-dom'
+import Formulario from './Form'
 class Users extends Component {
     constructor(props){
         super(props);
         this.state = {
-            users:[]
+            users:[],
+            a : 0
         }
-     
+    
     }
 
     componentDidMount(){
         axios.get('/api/user').then(res => {
-          let use = null
+          const users = res.data.data
           if (res.status == 200) {
-            console.log(res.data)
+          
             this.setState({
-              users: res.data
+              users
             })
           }
           })
     }
 
-    handleOnEdit(users) {
-      console.log(this.state.users)
-    
+    handleDelete(users) {
+      const { history } = this.props;
+      let identificationId = users.identification
+     
+      axios.delete("/api/user/"+identificationId).then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+      window.location.reload(true);
+
+     
+    }
+
+    handleOnEdit(users){
+      this.setState({
+        a:1
+      })
     }
 
 
         render() {
-      if(this.state.users = null){
+
+          if(this.state.a === 1){
             return (
               <div>
-                <ListUser  users={this.state.users} onEdit={this.handleOnEdit.bind(this)} />
+                <Formulario   />
+              </div>
+            );
+          }else{
+            return (
+              <div>
+                <ListUser  users={this.state.users} handleDelete={this.handleDelete.bind(this)} handleOnEdit={this.handleOnEdit.bind(this)}/>
               </div>
             );
           }
-            return (
-              <div>
-                <ListUser />
-              </div>
-            );
+
+            
+          
+           
         
     }
   }

@@ -3,23 +3,26 @@ import React, {Component} from 'react'
 class User extends Component{
 
     handleOnEdit(user){
-     
+        this.props.handleOnEdit(user)
     }
-
-    handleDelete(){
-        
+   
+    handleDelete(user){
+       
+       
+        this.props.handleDelete(user)
     }
 
     render(){
-        let user = this.props.users;
+        let user = this.props.user;
         return(
             <tr>
                             <td > {user.name}</td>
                             <td >{user.identification}</td>
                             <td >{user.photo}</td>
                             <td >{user.active}</td>
-                            <td ><button onClick = {this.handleOnEdit.bind(this)}>>Editar</button></td>
-                            <td ><button onClick = {this.handleDelete.bind(this)}>Eliminar</button></td>
+                            <td ><button type="submit" className="btn btn-sm btn-danger " onClick = {this.handleDelete.bind(this)}>Eliminar</button></td>
+
+                            <td ><button type="submit" className="btn btn-primary" onClick = {this.handleOnEdit.bind(this)}>Editar</button></td>
             </tr>
         )
     }
